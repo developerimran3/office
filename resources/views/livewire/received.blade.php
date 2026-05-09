@@ -252,7 +252,11 @@
                                                              </td>
 
                                                              <td rowspan="{{ $rowspan }}">
-                                                                 {{ $r->vessel }}
+                                                                 <a href="https://www.google.com/search?q={{ urlencode($r->vessel) }}"
+                                                                     target="_blank"
+                                                                     class="text-primary font-weight-bold">
+                                                                     {{ $r->vessel }}
+                                                                 </a>
                                                              </td>
 
                                                              <td rowspan="{{ $rowspan }}">
@@ -264,23 +268,24 @@
                                                              </td>
                                                          @endif
 
-
                                                          {{-- CONTAINER --}}
                                                          <td>
                                                              @if ($container)
-                                                                 {{ $container['container_no'] ?? '' }}
-                                                                 {{ $container['container_size'] ?? '' }}
-                                                                 FCL
+                                                                 <a href="https://cpatos.gov.bd/pcs/index.php/Report/mySearchContainerLocation{{ urlencode($r->container) }}"
+                                                                     target="_blank"
+                                                                     class="text-primary font-weight-bold">
+                                                                     {{ $container['container_no'] ?? '' }}
+                                                                 </a>
+                                                                 x <br> {{ $container['container_size'] ?? '' }}
                                                              @endif
                                                          </td>
 
                                                          {{-- YARD --}}
-                                                         <td>
+                                                         <td class="text-success font-weight-bold">
                                                              @if ($container)
                                                                  Y- {{ $container['container_location'] ?? '' }}
                                                              @endif
                                                          </td>
-
 
                                                          {{-- COMMON --}}
                                                          @if ($i == 0)

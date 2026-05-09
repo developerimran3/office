@@ -15,15 +15,12 @@ class Received extends Model
         'lc_number',
         'lc_date',
         'gross_weight',
-        'arivel_date',
+        'arrival_date',
         'items',
         'containers',
 
         'document_receiver',
         'rot_no',
-
-        'container_locations',
-        'net_weights',
 
         'invoice_value',
         'invoice_no',
@@ -36,4 +33,14 @@ class Received extends Model
         'container_locations' => 'array',
         'net_weights' => 'array',
     ];
+
+    public function items()
+    {
+        return $this->hasMany(EntyItem::class, 'enty_id', 'id');
+    }
+
+    public function containers()
+    {
+        return $this->hasMany(EntyContainer::class, 'enty_id', 'id');
+    }
 }

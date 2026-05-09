@@ -128,7 +128,7 @@ class Enty extends Component
             "lc_number"      => $this->lc_number,
             "lc_date"        => $this->lc_date,
             "gross_weight"   => $this->gross_weight,
-            "arrival_date"    => $this->arrival_date,
+            "arrival_date"   => $this->arrival_date,
         ]);
 
         foreach ($this->items as $item) {
@@ -151,9 +151,6 @@ class Enty extends Component
     }
 
 
-
-
-
     /**
      * Data EDIT
      */
@@ -169,6 +166,7 @@ class Enty extends Component
         $this->bl_no = $enty->bl_no;
         $this->lc_number = $enty->lc_number;
         $this->lc_date = $enty->lc_date;
+
         $this->gross_weight = $enty->gross_weight;
         $this->arrival_date = $enty->arrival_date;
         $this->items = [];
@@ -203,7 +201,7 @@ class Enty extends Component
                 "lc_number"      => $this->lc_number,
                 "lc_date"        => $this->lc_date,
                 "gross_weight"   => $this->gross_weight,
-                "arrival_date"    => $this->arrival_date,
+                "arrival_date"   => $this->arrival_date,
             ]);
             // delete old items
             EntyItem::where('enty_id', $enty->id)->delete();
@@ -250,16 +248,16 @@ class Enty extends Component
         DB::transaction(function () use ($id) {
             $enty = EntyDocument::with(['items', 'containers'])->findOrFail($id);
             Received::create([
-                'importer_name' => $enty->importer_name,
+                'importer_name'  => $enty->importer_name,
                 'total_quantity' => $enty->total_quantity,
-                'pkgs_code'     => $enty->pkgs_code,
-                'vessel'        => $enty->vessel,
-                'bl_no'         => $enty->bl_no,
-                'lc_number'     => $enty->lc_number,
-                'lc_date'       => $enty->lc_date,
-                'gross_weight'  => $enty->gross_weight,
+                'pkgs_code'      => $enty->pkgs_code,
+                'vessel'         => $enty->vessel,
+                'bl_no'          => $enty->bl_no,
+                'lc_number'      => $enty->lc_number,
+                'lc_date'        => $enty->lc_date,
+                'gross_weight'   => $enty->gross_weight,
                 'arrival_date'   => $enty->arrival_date,
-                'items' => $enty->items->map(function ($i) {
+                'items'          => $enty->items->map(function ($i) {
                     return [
                         'goods_name' => $i->goods_name,
                     ];

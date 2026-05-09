@@ -9,7 +9,7 @@ class EntyContainer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['enty_id', 'container_no', 'container_size'];
+    protected $fillable = ['enty_id', 'container_no', 'container_size', 'container_location'];
 
     public function enty()
     {
