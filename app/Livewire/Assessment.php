@@ -138,6 +138,7 @@ class Assessment extends Component
                     return [
                         'goods_name'        => $item['goods_name'] ?? '',
                         'item_quantity'     => $item['item_quantity'] ?? '',
+                        'item_value'        => $item['item_value'] ?? '',
                         'net_weight'        => $item['net_weight'] ?? '',
                         'item_gross_weight' => $item['item_gross_weight'] ?? '',
                     ];

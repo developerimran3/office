@@ -40,6 +40,7 @@ class Register extends Model
         'containers' => 'array',
         'container_locations' => 'array',
         'net_weights' => 'array',
+        'item_values' => 'array',
         'item_gross_weights' => 'array',
     ];
 

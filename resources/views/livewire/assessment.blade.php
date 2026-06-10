@@ -239,14 +239,17 @@
 
                                                             {{-- ACTION --}}
                                                             <td rowspan="{{ $rowspan }}">
-                                                                <a class="btn btn-sm btn-warning"
-                                                                    wire:click="editToAssessment({{ $assessment->id }})">
-                                                                    <i class="fa fa-edit"></i></a>
-                                                                @if ($assessment->assessment_date && $assessment->r_no)
-                                                                    <a class="btn btn-success"
-                                                                        wire:click.prevent="confirmMoveToDelivery({{ $assessment->id }})">
-                                                                        <i class="fa fa-arrow-circle-right"></i>
-                                                                @endif
+                                                                <div class="d-flex justify-content-between">
+                                                                    <a class="btn btn-sm btn-warning"
+                                                                        wire:click="editToAssessment({{ $assessment->id }})">
+                                                                        <i class="fa fa-edit"></i></a>
+                                                                    @if ($assessment->assessment_date && $assessment->r_no)
+                                                                        <a class="btn btn-sm btn-success ml-1"
+                                                                            wire:click.prevent="confirmMoveToDelivery({{ $assessment->id }})">
+                                                                            <i class="fa fa-arrow-circle-right"></i>
+                                                                        </a>
+                                                                    @endif
+                                                                </div>
                                                             </td>
                                                         @endif
                                                     </tr>

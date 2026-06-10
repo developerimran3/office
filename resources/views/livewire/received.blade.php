@@ -69,20 +69,25 @@
                                  <h3>Goods Details</h3>
                              </div>
 
-                             <div class="col-md-3 mb-2">
+                             <div class="col-md-2 mb-2">
                                  <label for="total_quantity">Total Quantity</label>
                                  <input type="text" class="form-control"
                                      value="{{ $total_quantity }} {{ $pkgs_code }}" readonly>
                              </div>
 
-                             <div class="col-md-3 mb-2">
+                             <div class="col-md-2 mb-2">
                                  <label for="total_quantity">Total N.W</label>
                                  <input type="text" class="form-control" value="{{ $total_nw }} KGS" readonly>
                              </div>
 
-                             <div class="col-md-3 mb-2">
+                             <div class="col-md-2 mb-2">
                                  <label for="total_quantity">Total G.w</label>
                                  <input type="text" class="form-control" value="{{ $gross_weight }} KGS" readonly>
+                             </div>
+
+                             <div class="col-md-2 mb-2">
+                                 <label for="total_quantity">Total Value</label>
+                                 <input type="text" class="form-control" value="USD {{ $remainingValue }}" readonly>
                              </div>
                              @foreach ($items as $index => $item)
                                  <div class="col-md-3 my-2">
@@ -90,19 +95,25 @@
                                          class="form-control text-uppercase text-white bg-info" readonly>
                                  </div>
 
-                                 <div class="col-md-3 my-2">
+                                 <div class="col-md-2 my-2">
                                      <input type="text" wire:model="items.{{ $index }}.item_quantity"
                                          name="quantity" class="form-control" placeholder="Item Quantity">
                                  </div>
 
-                                 <div class="col-md-3 my-2">
+                                 <div class="col-md-2 my-2">
                                      <input type="number" wire:model="items.{{ $index }}.net_weight"
                                          name="net_weight" class="form-control" step="0.001" placeholder="Net Weight">
                                  </div>
-                                 <div class="col-md-3 my-2">
+
+                                 <div class="col-md-2 my-2">
                                      <input type="number" wire:model="items.{{ $index }}.item_gross_weight"
                                          name="gross_weight" class="form-control" step="0.001"
                                          placeholder="Item Gross Weight">
+                                 </div>
+
+                                 <div class="col-md-2 my-2">
+                                     <input type="number" wire:model="items.{{ $index }}.item_value"
+                                         name="item_value" class="form-control" step="0.001" placeholder="Item Value">
                                  </div>
                              @endforeach
                              {{-- Container Details --}}
@@ -321,25 +332,19 @@
 
                                                              {{-- ACTION --}}
                                                              <td rowspan="{{ $rowspan }}">
-
-                                                                 <a class="btn btn-sm btn-warning"
-                                                                     wire:click="editToReceived({{ $r->id }})">
-                                                                     <i class="fa fa-edit"></i>
-                                                                 </a>
-
-                                                                 @if ($r->invoice_value && $r->invoice_no && $r->invoice_date && $r->rot_no && $r->vessel)
-                                                                     <a class="btn btn-sm btn-success"
-                                                                         wire:click="moveToRegister({{ $r->id }})"
-                                                                         wire:confirm="Are you Move To Register Document?">
-
-                                                                         <i class="fa fa-arrow-circle-right"></i>
-
+                                                                 <div class="d-flex justify-content-between">
+                                                                     <a class="btn btn-sm btn-warning"
+                                                                         wire:click="editToReceived({{ $r->id }})">
+                                                                         <i class="fa fa-edit"></i>
                                                                      </a>
-                                                                 @endif
 
+                                                                     <a class="btn btn-sm btn-success ml-1"
+                                                                         wire:click="moveToRegister({{ $r->id }})">
+                                                                         <i class="fa fa-arrow-circle-right"></i>
+                                                                     </a>
+                                                                 </div>
                                                              </td>
                                                          @endif
-
                                                      </tr>
                                                  @endfor
                                              @endforeach

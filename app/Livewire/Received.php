@@ -13,14 +13,25 @@ class Received extends Component
 {
     public $items = [];
     public $containers = [];
-    public $receiveds;
-    public $receivedId;
-    public $total_quantity;
-    public $initial_total;
-    public $pkgs_code;
+    public $receiveds = '';
+    public $receivedId = '';
+    public $total_quantity = '';
+    public $initial_total = '';
+    public $pkgs_code = '';
 
+    public $remainingValue = 0;
+    public $invoice_value = '';
+    public $invoice_no = '';
+    public $invoice_date = '';
+    public $rot_no = '';
+    public $vessel = '';
+    public $bl_no = '';
+    public $total_nw = '';
 
-    public $invoice_value,  $invoice_no, $invoice_date, $rot_no, $vessel, $bl_no, $total_nw, $gross_weight, $remaining_gross_weight, $item_gross_weight, $container_location;
+    public $initial_gw = '';
+    public $gross_weight = '';
+    public $item_gross_weight = '';
+    public $container_location = '';
 
 
 
@@ -62,10 +73,15 @@ class Received extends Component
         $this->invoice_value  = $receive->invoice_value;
         $this->invoice_no     = $receive->invoice_no;
         $this->invoice_date   = $receive->invoice_date;
+
         $this->rot_no         = $receive->rot_no;
-        $this->initial_total  = (int) $receive->total_quantity;
-        $this->total_quantity = (int) $receive->total_quantity;
+
+        $this->total_quantity = $receive->total_quantity;
+        $this->initial_total  = $receive->total_quantity;
+
         $this->gross_weight   = $receive->gross_weight;
+        $this->initial_gw     = $receive->gross_weight;
+
         $this->pkgs_code      = $receive->pkgs_code;
         $this->vessel         = $receive->vessel;
         $this->bl_no          = $receive->bl_no;
@@ -77,14 +93,18 @@ class Received extends Component
 
 
 
+
+
     public $warningMessage = '';
 
     public function updatedItems()
     {
         // Total Net Weight Sum
         $this->total_nw = collect($this->items)->sum(function ($item) {
-            return (float) ($item['net_weight'] ?? 0);
+            return (int) ($item['net_weight'] ?? 0);
         });
+
+
 
         // Used Quantity
         $usedQuantity = 0;
@@ -99,24 +119,45 @@ class Received extends Component
             $this->warningMessage = '⚠️ Quantity cannot be more than total!';
             return;
         }
-
         $this->total_quantity = $remainingQuantity;
+
+
+
 
         // Used Gross Weight
         $usedGrossWeight = 0;
 
         foreach ($this->items as $item) {
-            $usedGrossWeight += (float) ($item['item_gross_weight'] ?? 0);
+            $usedGrossWeight += (int) ($item['item_gross_weight'] ?? 0);
         }
 
-        $remainingGrossWeight = $this->gross_weight - $usedGrossWeight;
+        $remainingGrossWeight = $this->initial_gw - $usedGrossWeight;
 
         if ($remainingGrossWeight < 0) {
             $this->warningMessage = '⚠️ Gross Weight cannot be more than total!';
             return;
         }
+        $this->gross_weight = $remainingGrossWeight;
 
-        $this->remaining_gross_weight = $remainingGrossWeight;
+
+
+
+
+        $items = collect($this->items);
+        // TOTAL USED VALUE (sum of item_value)
+        $usedValue = $items->sum(function ($item) {
+            return (int) ($item['item_value'] ?? 0);
+        });
+
+        // REMAINING VALUE = INVOICE - USED
+        $this->remainingValue = (int) $this->invoice_value - $usedValue;
+
+        // WARNING if over limit
+        if ($this->remainingValue < 0) {
+            $this->warningMessage = '⚠️ Item Value cannot exceed Invoice Value!';
+            return;
+        }
+
 
         // Clear Warning
         $this->warningMessage = '';
@@ -185,6 +226,7 @@ class Received extends Component
                     return [
                         'goods_name'        => $item['goods_name'] ?? '',
                         'item_quantity'     => $item['item_quantity'] ?? '',
+                        'item_value'        => $item['item_value'] ?? '',
                         'net_weight'        => $item['net_weight'] ?? '',
                         'item_gross_weight' => $item['item_gross_weight'] ?? '',
                     ];

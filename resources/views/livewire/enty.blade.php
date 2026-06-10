@@ -302,22 +302,24 @@
 
                                                             {{-- ACTION --}}
                                                             <td rowspan="{{ $rowspan }}">
-                                                                <a class="btn btn-warning btn-sm"
-                                                                    wire:click="editToEnty({{ $e->id }})">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </a>
+                                                                <div class="d-flex justify-content-between">
+                                                                    <a class="btn btn-warning btn-sm"
+                                                                        wire:click="editToEnty({{ $e->id }})">
+                                                                        <i class="fa fa-edit"></i>
+                                                                    </a>
 
-                                                                <a class="btn btn-danger btn-sm"
-                                                                    wire:click="deleteEnty({{ $e->id }})"
-                                                                    wire:confirm="Are you sure? Document Delete?">
-                                                                    <i class="fa fa-trash"></i>
-                                                                </a>
+                                                                    <a class="btn btn-danger btn-sm ml-1"
+                                                                        wire:click="deleteEnty({{ $e->id }})"
+                                                                        wire:confirm="Are you sure? Document Delete?">
+                                                                        <i class="fa fa-trash"></i>
+                                                                    </a>
 
-                                                                <a class="btn btn-success btn-sm"
-                                                                    wire:click="moveToReceived({{ $e->id }})"
-                                                                    wire:confirm="Are you Move To Received Document?">
-                                                                    <i class="fa fa-arrow-circle-right"></i>
-                                                                </a>
+                                                                    <a class="btn btn-sm  btn-success ml-1"
+                                                                        wire:click="moveToReceived({{ $e->id }})"
+                                                                        wire:confirm="Are you Move To Received Document?">
+                                                                        <i class="fa fa-arrow-circle-right"></i>
+                                                                    </a>
+                                                                </div>
                                                             </td>
                                                         @endif
                                                     </tr>

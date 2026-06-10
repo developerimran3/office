@@ -251,8 +251,12 @@ legend {
 .assessment th:nth-child(14) {
     width: 6%;
 }
+
 .assessment th:nth-child(13) {
     width: 6%;
+}
+.assessment th:nth-child(15) {
+    width: 1%;
 }
 
 /*------------------------------------------------------------------
@@ -318,7 +322,7 @@ legend {
     width: 5%;
 }
 .register_enty th:nth-child(16) {
-    width: 7%;
+    width: 1%;
 }
 
 /*------------------------------------------------------------------
@@ -366,7 +370,9 @@ legend {
 .document_received th:nth-child(12) {
     width: 8%;
 }
-
+.document_received th:nth-child(16) {
+    width: 1%;
+}
 /*------------------------------------------------------------------
     New Enty table
 -------------------------------------------------------------------*/
@@ -418,8 +424,8 @@ legend {
 .new_enty_tr th:nth-child(11) {
     width: 6%;
 }
-.new_enty_tr th:nth-child(13) {
-    width: 10%;
+.new_enty_tr th:nth-child(12) {
+    width: 1%;
 }
 
 /*------------------------------------------------------------------
@@ -460,7 +466,6 @@ legend {
 }
 
 .delivery_tr th:nth-child(11),
-.delivery_tr th:nth-child(14),
 .delivery_tr th:nth-child(13) {
     width: 5%;
 }
@@ -473,6 +478,9 @@ legend {
     width: 6%;
 }
 
+.delivery_tr th:nth-child(14) {
+    width: 1%;
+}
 /*------------------------------------------------------------------
       Janata Bank Page
 -------------------------------------------------------------------*/

@@ -285,19 +285,36 @@
                                                             {{ $r->be_lane === 'YELLOW' ? 'text-warning' : '' }}">
                                                             {{ $r->be_lane }}
                                                         </td>
+
                                                         {{-- ACTION --}}
+                                                        {{-- <td rowspan="{{ $rowspan }}">
+                                                            <div
+                                                                class="d-flex justify-content-between align-items-center">
+                                                                <a class="btn btn-sm btn-warning"
+                                                                    wire:click="editToregister({{ $r->id }})">
+                                                                    <i class="fa fa-edit"></i></a>
+                                                                @if ($r->be_no && $r->be_date && $r->be_lane)
+                                                                    <a class="btn btn-sm btn-success "
+                                                                        wire:click="moveToAssessment({{ $r->id }})"
+                                                                        wire:confirm="Are you Move To Assessment Document?">
+                                                                        <i class="fa fa-arrow-circle-right "></i></a>
+                                                                @endif
+                                                            </div>
+                                                        </td> --}}
 
 
                                                         <td rowspan="{{ $rowspan }}">
-                                                            <a class="btn btn-sm btn-warning"
-                                                                wire:click="editToregister({{ $r->id }})">
-                                                                <i class="fa fa-edit"></i></a>
-                                                            @if ($r->be_no && $r->be_date && $r->be_lane)
-                                                                <a class="btn btn-sm btn-success"
-                                                                    wire:click="moveToAssessment({{ $r->id }})"
-                                                                    wire:confirm="Are you Move To Assessment Document?">
-                                                                    <i class="fa fa-arrow-circle-right "></i></a>
-                                                            @endif
+                                                            <div class="d-flex justify-content-between">
+                                                                <a class="btn btn-sm btn-warning"
+                                                                    wire:click="editToReceived({{ $r->id }})">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </a>
+
+                                                                <a class="btn btn-sm btn-success ml-1"
+                                                                    wire:click="moveToRegister({{ $r->id }})">
+                                                                    <i class="fa fa-arrow-circle-right"></i>
+                                                                </a>
+                                                            </div>
                                                         </td>
                                                     @endif
                                                 </tr>

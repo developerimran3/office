@@ -183,17 +183,19 @@
 
                                                             {{-- ACTION --}}
                                                             <td rowspan="{{ $rowspan }}">
-                                                                @if (!$deliv->document)
-                                                                    <a class="btn btn-sm btn-warning"
-                                                                        wire:click="editToDelivery({{ $deliv->id }})">
-                                                                        <i class="fa fa-edit"></i></a>
-                                                                @endif
-                                                                <a class="btn btn-sm btn-info"
-                                                                    wire:click="viewDocument({{ $deliv->id }})"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#viewDocumentModal">
-                                                                    <i class="fa fa-eye"></i>
-                                                                </a>
+                                                                <div class="d-flex justify-content-between">
+                                                                    @if (!$deliv->document)
+                                                                        <a class="btn btn-sm btn-warning"
+                                                                            wire:click="editToDelivery({{ $deliv->id }})">
+                                                                            <i class="fa fa-edit"></i></a>
+                                                                    @endif
+                                                                    <a class="btn btn-sm btn-info ml-1"
+                                                                        wire:click="viewDocument({{ $deliv->id }})"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#viewDocumentModal">
+                                                                        <i class="fa fa-eye"></i>
+                                                                    </a>
+                                                                </div>
                                                             </td>
                                                         @endif
                                                     </tr>
