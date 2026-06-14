@@ -32,21 +32,22 @@ return new class extends Migration
             $table->date('document_receiver')->nullable();
             $table->string('rot_no')->nullable();
             $table->string('invoice_value')->nullable();
-            $table->string('invoice_no')->nullable()->unique();
+            $table->string('invoice_no')->nullable();
             $table->date('invoice_date')->nullable();
 
             // Register fields
-            $table->string('be_no')->unique()->nullable();
+            $table->string('be_no')->nullable();
             $table->date('be_date')->nullable();
             $table->string('be_lane')->nullable();
 
             // Assessment only
             $table->date('assessment_date')->nullable();
             $table->string('document')->nullable();
-            $table->string('r_no')->unique()->nullable();
+            $table->string('r_no')->nullable();
 
             // Delivery Only
             $table->date('delivery_date')->nullable();
+            $table->softDeletes(); // adds deleted_at
 
             $table->timestamps();
         });

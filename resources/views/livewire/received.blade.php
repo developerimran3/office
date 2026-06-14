@@ -38,8 +38,8 @@
                                      </div>
                                      <div class="col-md-2">
                                          <label>Invoice Value</label>
-                                         <input type="text" wire:model="invoice_value" name="invoice_value"
-                                             class="form-control">
+                                         <input type="number" step="0.01" wire:model="invoice_value"
+                                             name="invoice_value" class="form-control">
                                      </div>
                                      <div class="col-md-2">
                                          <label>Invoice No</label>
@@ -103,14 +103,15 @@
                                          </div>
 
                                          <div class="col-md-2 my-2">
-                                             <input type="text" wire:model="items.{{ $index }}.item_quantity"
-                                                 name="quantity" class="form-control" placeholder="Item Quantity">
+                                             <input type="number" step="0.01"
+                                                 wire:model="items.{{ $index }}.item_quantity" name="quantity"
+                                                 class="form-control" placeholder="Item Quantity">
                                          </div>
 
                                          <div class="col-md-2 my-2">
-                                             <input type="number" wire:model="items.{{ $index }}.net_weight"
-                                                 name="net_weight" class="form-control" step="0.001"
-                                                 placeholder="Net Weight">
+                                             <input type="number" step="0.001"
+                                                 wire:model="items.{{ $index }}.net_weight" name="net_weight"
+                                                 class="form-control" placeholder="Net Weight">
                                          </div>
 
                                          <div class="col-md-2 my-2">
@@ -330,9 +331,8 @@
                                                              @if ($container)
                                                                  <a class="text-primary font-weight-bold">
                                                                      {{ $container['container_no'] ?? '' }}
-
                                                                  </a>
-                                                                 x <br> {{ $container['container_size'] ?? '' }}
+                                                                 <br> X {{ $container['container_size'] ?? '' }}
                                                              @endif
 
                                                          </td>
@@ -372,6 +372,11 @@
                                                                              <i class="fa fa-arrow-circle-right"></i>
                                                                          </a>
                                                                      @endif
+                                                                     <a class="btn btn-danger btn-sm ml-1"
+                                                                         wire:click="deleteReceived({{ $receive->id }})"
+                                                                         wire:confirm="Are you sure? Document Delete?">
+                                                                         <i class="fa fa-trash"></i>
+                                                                     </a>
                                                                  </div>
                                                              </td>
                                                          @endif

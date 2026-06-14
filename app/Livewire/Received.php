@@ -200,6 +200,15 @@ class Received extends Component
     }
 
 
+
+    public function deleteReceived(int $id)
+    {
+        $receive = ReceiveDocument::findOrFail($id);
+        $receive->delete();
+        session()->flash('success', 'Document deleted successfully!');
+        $this->mount();
+    }
+
     /**
      * Move All received Data Register Page...
      */

@@ -9,6 +9,46 @@
             </div>
         </div>
 
+        @if ($deliveryId)
+            <div class="row column1">
+                <div class="col-md-12">
+                    <div class="white_shd page_title mt-3">
+                        <div class="heading1 margin_0">
+                            <h2>Documents Details</h2>
+                            <hr class="m-0">
+                        </div>
+                        <form wire:submit.prevent="updateDelivery({{ $deliveryId }})">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="importer_name">Importer Name</label>
+                                    <input type="text" wire:model="importer_name" class="form-control text-uppercase"
+                                        readonly>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="bl_no">BL No</label>
+                                    <input type="text" wire:model="bl_no" class="form-control" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="be_no">BE No</label>
+                                    <input type="text" wire:model="be_no" class="form-control" readonly>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="document">Document</label>
+                                    <input type="file" wire:model="document" class="form-control">
+                                    @error('document')
+                                        <p class="text-danger"> {{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="col-md-12 my-3">
+                                    <button type="submit" class="main_bt float-right">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endif
 
         <!-- table srart -->
         <div class="row column1 pt-lg-4">
@@ -29,7 +69,7 @@
                         <div class="col-md-12">
                             <div class=" full">
                                 <div class="heading1 margin_0">
-                                    <table class="table table-bordered" id="dataTable">
+                                    <table class="table table-bordered">
                                         <thead>
                                             <tr class="delivery_tr">
                                                 <th>#</th>
@@ -48,7 +88,7 @@
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="text-uppercase">
                                             @foreach ($delivery as $deliv)
                                                 @php
                                                     $items = $deliv->items ?? [];
@@ -112,7 +152,7 @@
                                                                 <a class="text-primary font-weight-bold">
                                                                     {{ $container['container_no'] ?? '' }}
                                                                 </a>
-                                                                x {{ $container['container_size'] }}
+                                                                <br> X {{ $container['container_size'] }}
                                                             @endif
                                                         </td>
 
@@ -146,19 +186,17 @@
                                                                 <div class="d-flex justify-content-between">
                                                                     @if (!$deliv->document)
                                                                         <a class="btn btn-sm btn-warning"
-                                                                            wire:click="editToDelivery({{ $deliv->id }})"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#editDeliveryModal">
+                                                                            wire:click="editToDelivery({{ $deliv->id }})">
                                                                             <i class="fa fa-edit"></i></a>
                                                                     @endif
-                                                                    @if ($deliv->document)
-                                                                        <a class="btn btn-sm btn-info ml-1"
-                                                                            wire:click="viewDocument({{ $deliv->id }})"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#viewDocumentModal">
-                                                                            <i class="fa fa-eye"></i>
-                                                                        </a>
-                                                                    @endif
+
+                                                                    <a class="btn btn-sm btn-info ml-1"
+                                                                        wire:click="viewDocument({{ $deliv->id }})"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#viewDocumentModal">
+                                                                        <i class="fa fa-eye"></i>
+                                                                    </a>
+
                                                                     @if (!$deliv->document)
                                                                         <a class="btn btn-danger btn-sm ml-1"
                                                                             wire:click="deleteDelivery({{ $deliv->id }})"
@@ -184,72 +222,9 @@
     </div>
     <!-- table end -->
 
-    <!-- Edit Delivery Modal -->
-    <div wire:ignore.self class="modal fade" id="editDeliveryModal" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered" style="max-width: 900px;">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title text-white">
-                        📄 Document Full Details
-                    </h5>
-                </div>
-                <!-- Modal Body -->
-                <div class="modal-body">
-                    @if ($deliveryId)
-                        <div class="row column1">
-                            <div class="col-md-12">
-                                <div class="white_shd full p-4">
-                                    <div class="heading1 margin_0">
-                                        <h2>Documents Details</h2>
-                                        <hr class="m-0">
-                                    </div>
-                                    <form wire:submit.prevent="updateDelivery({{ $deliveryId }})">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label for="importer_name">Importer Name</label>
-                                                <input type="text" wire:model="importer_name"
-                                                    class="form-control text-uppercase" readonly>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="bl_no">BL No</label>
-                                                <input type="text" wire:model="bl_no" class="form-control" readonly>
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <label for="be_no">BE No</label>
-                                                <input type="text" wire:model="be_no" class="form-control" readonly>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="document">Document</label>
-                                                <input type="file" wire:model="document" class="form-control">
-                                                @error('document')
-                                                    <p class="text-danger"> {{ $message }}</p>
-                                                @enderror
-                                            </div>
-                                            <div class="col-md-12 my-3">
-                                                <button type="submit" class="main_bt float-right">Update</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-                <!-- Modal Footer -->
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
     <!-- View Document Modal -->
     <div wire:ignore.self class="modal fade" id="viewDocumentModal" tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" style="max-width: 920px">
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header bg-dark text-white">
@@ -269,10 +244,8 @@
                                         Basic Information
                                     </div>
                                     <div class="card-body">
-                                        <p><strong>Importer:</strong> {{ $this->viewData->importer_name }}
-                                        </p>
-                                        <p><strong>Goods:</strong> {{ $this->viewData->goods_name }}</p>
-                                        <p><strong>Quantity:</strong> {{ $this->viewData->total_quantity }}
+                                        <p><strong>Importer:</strong> {{ $this->viewData->importer_name }} </p>
+                                        <p><strong>Total Quantity:</strong> {{ $this->viewData->total_quantity }}
                                             {{ $this->viewData->pkgs_code }}</p>
                                         <p><strong>Vessel:</strong> {{ $this->viewData->vessel }}</p>
                                         <p><strong>BL No:</strong> {{ $this->viewData->bl_no }}</p>
@@ -287,18 +260,109 @@
                                     </div>
                                     <div class="card-body">
                                         <p><strong>ROT No:</strong> {{ $this->viewData->rot_no }} </p>
-                                        <p><strong>Container No:</strong>
-                                            {{ $this->viewData->container_no }} x
-                                            {{ $this->viewData->container_size }}
-                                        </p>
-                                        <p><strong>Yard:</strong>
-                                            {{ $this->viewData->container_location ? 'Y- ' . $this->viewData->container_location : '' }}
-                                        </p>
                                         <p><strong>LC No:</strong> {{ $this->viewData->lc_number }}</p>
                                         <p><strong>LC Date:</strong> {{ $this->viewData->lc_date }}</p>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-12 mb-3">
+                                <div class="card shadow-sm">
+                                    <div class="card-header fw-bold bg-danger text-white">
+                                        Items & Container Details
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 23%">Goods Name</th>
+                                                    <th style="width: 11%">Item Qty</th>
+                                                    <th>Item Value</th>
+                                                    <th>Item N. W</th>
+                                                    <th>Item G. W</th>
+                                                    <th>Cont. No</th>
+                                                    <th>Yard</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-uppercase">
+                                                @php
+                                                    $items = collect($this->viewData->items ?? [])
+                                                        ->filter(fn($item) => !empty($item['goods_name']))
+                                                        ->values();
+                                                    $containers = collect($this->viewData->containers ?? [])
+                                                        ->filter(fn($c) => !empty($c['container_no']))
+                                                        ->values();
+                                                    $rowCount = max($items->count(), $containers->count(), 1);
+                                                    $total_net_weight = collect($this->viewData->items ?? [])->sum(
+                                                        'net_weight',
+                                                    );
+                                                @endphp
+
+                                                @for ($i = 0; $i < $rowCount; $i++)
+                                                    @php
+                                                        $item = $items[$i] ?? null;
+                                                        $container = $containers[$i] ?? null;
+                                                    @endphp
+                                                    <tr>
+                                                        <td>
+                                                            {{ $item['goods_name'] ?? '' }}
+                                                        </td>
+                                                        <td>
+                                                            @if ($item)
+                                                                {{ $item['item_quantity'] }}
+                                                                {{ $this->viewData->pkgs_code }}
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($item)
+                                                                $ {{ $item['item_value'] ?? '' }}
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($item)
+                                                                {{ $item['net_weight'] ?? '' }} KGS
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($item)
+                                                                {{ $item['item_gross_weight'] ?? '' }} KGS
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($container)
+                                                                <a class="text-primary font-weight-bold">
+                                                                    {{ $container['container_no'] }}
+                                                                </a>
+                                                                X {{ $container['container_size'] }}
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-danger font-weight-bold">
+                                                            @if ($container)
+                                                                Y- {{ $container['container_location'] }}
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endfor
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th class="float-right">Total=</th>
+                                                    <th>{{ $this->viewData->total_quantity }}
+                                                        {{ $this->viewData->pkgs_code }}</th>
+                                                    <th>$ {{ number_format($this->viewData->invoice_value ?? 0, 2) }}
+                                                    </th>
+                                                    <th>{{ number_format($total_net_weight, 2) }} KGS</th>
+                                                    <th> {{ number_format($this->viewData->gross_weight ?? 0, 2) }} KGS
+                                                    </th>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- RECEIVED -->
                             <div class="col-md-6 mb-3">
                                 <div class="card shadow-sm">
@@ -306,7 +370,7 @@
                                         Received Info
                                     </div>
                                     <div class="card-body">
-                                        <p><strong>Gross Weight:</strong>
+                                        <p><strong>Total Gross Weight:</strong>
                                             {{ number_format($this->viewData->gross_weight ?? 0, 2) }} KGS
                                         </p>
                                         <p><strong>Invoice No:</strong> {{ $this->viewData->invoice_no }} </p>
@@ -326,8 +390,8 @@
                                         Register Info
                                     </div>
                                     <div class="card-body">
-                                        <p><strong>Net Weight:</strong>
-                                            {{ number_format($this->viewData->net_weight ?? 0, 2) }} KGS
+                                        <p><strong>Total Net Weight:</strong>
+                                            {{ number_format($total_net_weight, 2) }} KGS
                                         </p>
                                         <p><strong>BE No:</strong>
                                             {{ $this->viewData->be_no ? 'C- ' . $this->viewData->be_no : '' }}
@@ -406,5 +470,4 @@
             </div>
         </div>
     </div>
-
 </div>

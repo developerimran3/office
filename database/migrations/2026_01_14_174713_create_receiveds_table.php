@@ -31,7 +31,7 @@ return new class extends Migration
             $table->date('document_receiver')->nullable();
             $table->string('rot_no')->nullable();
             $table->string('invoice_value')->nullable();
-            $table->string('invoice_no')->nullable()->unique();
+            $table->string('invoice_no')->nullable();
             $table->date('invoice_date')->nullable();
 
             $table->timestamps();

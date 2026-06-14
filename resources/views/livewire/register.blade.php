@@ -29,7 +29,7 @@
 
                                      <div class="col-md-3">
                                          <label for="be_no">B/E Number</label>
-                                         <input type="text" wire:model="be_no" name="be_no" class="form-control"
+                                         <input type="number" wire:model="be_no" name="be_no" class="form-control"
                                              placeholder="B/E Number">
                                          @error('be_no')
                                              <p class="text-danger"> {{ $message }}</p>
@@ -47,8 +47,7 @@
 
                                      <div class="col-md-3">
                                          <label for="be_lane">B/E Lane</label>
-                                         <select wire:model="be_lane" name="be_lane" id=""
-                                             class="form-control">
+                                         <select wire:model="be_lane" class="form-control">
                                              <option hidden>B/E LANE</option>
                                              <option value="YELLOW">YELLOW LANE</option>
                                              <option value="RED">RED LANE</option>
@@ -232,8 +231,6 @@
                                                              <td></td>
                                                              <td></td>
                                                          @endif
-
-
                                                          {{-- COMMON DATA --}}
                                                          @if ($i == 0)
                                                              <td rowspan="{{ $rowspan }}">
@@ -270,7 +267,7 @@
                                                                      {{ $container['container_no'] ?? '' }}
 
                                                                  </a>
-                                                                 x <br> {{ $container['container_size'] ?? '' }}
+                                                                 <br> X {{ $container['container_size'] ?? '' }}
                                                              @endif
                                                          </td>
 

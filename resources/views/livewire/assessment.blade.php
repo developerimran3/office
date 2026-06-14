@@ -52,7 +52,7 @@
                                             </p>
                                         @endif
                                     </div>
-                                    @if (!$containers[0]['container_location'])
+                                    @if (empty($containers[0]['container_location']))
                                         <div class="col-md-12 text-right mt-3">
                                             <button type="button" wire:click="nextStep" class="main_bt">
                                                 Next →
@@ -153,9 +153,10 @@
                                                 <th>Importer Name</th>
                                                 <th>Lc No</th>
                                                 <th>Goods Name</th>
-                                                <th>Quantity</th>
+                                                <th>Item Qty</th>
                                                 <th>N. W</th>
                                                 <th>G. W</th>
+                                                <th>Total Qty</th>
                                                 <th>B/E No</th>
                                                 <th>B/E Date</th>
                                                 <th>Cont. No</th>
@@ -232,6 +233,11 @@
                                                         {{-- COMMON DATA --}}
                                                         @if ($i == 0)
                                                             <td rowspan="{{ $rowspan }}">
+                                                                {{ $assessment->total_quantity }}
+                                                                {{ $assessment->pkgs_code }}
+                                                            </td>
+
+                                                            <td rowspan="{{ $rowspan }}">
                                                                 C- <br> <a
                                                                     class="font-weight-bold text-success">{{ $assessment->be_no }}</a>
                                                             </td>
@@ -247,7 +253,7 @@
                                                                 <a class="text-primary font-weight-bold">
                                                                     {{ $container['container_no'] ?? '' }}
                                                                 </a>
-                                                                x {{ $container['container_size'] ?? '' }}
+                                                                <br> X {{ $container['container_size'] ?? '' }}
                                                             @endif
                                                         </td>
 
@@ -282,7 +288,7 @@
                                                             {{-- ACTION --}}
                                                             <td rowspan="{{ $rowspan }}">
                                                                 <div class="d-flex justify-content-between">
-                                                                    <a class="btn btn-sm btn-warning"
+                                                                    <a url="#" class="btn btn-sm btn-warning"
                                                                         wire:click.prevent="editToAssessment({{ $assessment->id }})">
                                                                         <i class="fa fa-edit"></i></a>
                                                                     @if ($assessment->assessment_date && $assessment->r_no && $container['container_location'])
