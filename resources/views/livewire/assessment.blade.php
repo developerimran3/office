@@ -228,8 +228,6 @@
                                                             <td></td>
                                                             <td></td>
                                                         @endif
-
-
                                                         {{-- COMMON DATA --}}
                                                         @if ($i == 0)
                                                             <td rowspan="{{ $rowspan }}">
