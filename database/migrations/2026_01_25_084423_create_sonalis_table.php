@@ -17,7 +17,7 @@ return new class extends Migration
             // For Cash/B/E type
             $table->string('type'); // CASH বা BE            
             // B/E fields
-            $table->string('items')->nullable();
+            $table->json('items')->nullable();
             $table->string('be_no')->nullable();
             $table->date('be_date')->nullable();
             $table->decimal('debit', 15, 2)->default(0);

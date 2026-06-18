@@ -154,14 +154,11 @@
                                                     : $sonali->items;
                                             @endphp
 
-                                            @foreach ($items ?? [] as $item)
-                                                {{ collect($items)->pluck('goods_name')->implode(', ') }}
-                                            @endforeach
+                                            {{ collect($items ?? [])->pluck('goods_name')->implode(',    ') }}
                                         @elseif($sonali->type == 'CASH')
                                             CASH
                                         @endif
                                     </td>
-
                                 </tr>
                             @endforeach
                         </tbody>

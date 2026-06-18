@@ -57,7 +57,7 @@ class JanataBank extends Component
         if ($this->type == 'CASH') {
             $this->validate([
                 'credit'      => 'required|numeric|min:1',
-                'credit_date' => 'required|date',
+                'credit_date' => 'required',
             ]);
         } elseif ($this->type == 'BE') {
             $this->validate([
@@ -67,15 +67,14 @@ class JanataBank extends Component
         }
         // Create new 
         Janata::create([
-            'type'           => $this->type,
-            'importer_name'  => $this->importer_name,
-            'items'          => json_encode($this->items),
-            'be_no'          => $this->be_no,
-            'be_date'        => $this->be_date,
-            'debit'          => $this->type == 'BE' ? $this->debit : 0,
-            'credit'         => $this->type == 'CASH' ? $this->credit : 0,
-            'credit_date'    => $this->credit_date,
-
+            'type'          => $this->type,
+            'importer_name' => $this->importer_name,
+            'items'         => $this->type == 'BE' ? json_encode($this->items) : null,
+            'be_no'         => $this->be_no,
+            'be_date'       => $this->be_date,
+            'debit'         => $this->type == 'BE' ? $this->debit : 0,
+            'credit'        => $this->type == 'CASH' ? $this->credit : 0,
+            'credit_date'   => $this->credit_date,
         ]);
         session()->flash('success', 'Janata Bank Data saved successfully!');
         // Reset form

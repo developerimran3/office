@@ -169,9 +169,7 @@
                                                     : $janata->items;
                                             @endphp
 
-                                            @foreach ($items ?? [] as $item)
-                                                {{ collect($items)->pluck('goods_name')->implode(', ') }}
-                                            @endforeach
+                                            {{ collect($items ?? [])->pluck('goods_name')->implode(',    ') }}
                                         @elseif($janata->type == 'CASH')
                                             CASH
                                         @endif

@@ -221,7 +221,8 @@
                                                                  KGS
                                                              </td>
                                                              <td>
-                                                                 $ {{ number_format($item['item_value'] ?? 0, 2) }}
+                                                                 $
+                                                                 {{ number_format((float) ($item['item_value'] ?? 0), 2) }}
                                                              </td>
                                                          @else
                                                              {{-- EMPTY CELLS --}}

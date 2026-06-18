@@ -209,7 +209,7 @@
                                                             </td>
 
                                                             <td>
-                                                                {{ $item['item_quantity'] ?? ($item['qty'] ?? 0) }}
+                                                                {{ $item['item_quantity'] ?? 0 }}
                                                                 {{ $assessment->pkgs_code }}
                                                             </td>
 
