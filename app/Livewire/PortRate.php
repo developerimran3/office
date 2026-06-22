@@ -9,31 +9,55 @@ class PortRate extends Component
 {
     public $river_duse_20 = 5.41;
     public $river_duse_40 = 10.82;
+    public $river_duse_45 = 12.18;
     public $river_duse_lcl = 0.443;
 
+
     public $lift_on_20 = 10;
-    public $lift_on_40 = 30;
+    public $lift_on_40 = 15;
+    public $lift_on_45 = 23.23;
+
+    public $lift_on_20_HQ = 20;
+    public $lift_on_40_HQ = 30;
+    public $lift_on_45_HQ = 46.46;
+
 
     public $extra_movement_20 = 45.46;
     public $extra_movement_40 = 68.19;
+    public $extra_movement_45 = 76.72;
+
+
 
     public $storage_1st_20 = 6.9;
     public $storage_1st_40 = 13.8;
+    public $storage_1st_45 = 15.53;
+
     public $storage_1st_20_dg = 27.6;
     public $storage_1st_40_dg = 55.2;
+    public $storage_1st_45_dg = 62.12;
+
 
     public $storage_2nd_20 = 13.8;
     public $storage_2nd_40 = 27.6;
+    public $storage_2nd_45 = 31.05;
+
     public $storage_2nd_20_dg = 55.2;
     public $storage_2nd_40_dg = 110.4;
+    public $storage_2nd_45_dg = 124.02;
+
 
     public $storage_3rd_20 = 27.6;
     public $storage_3rd_40 = 55.2;
+    public $storage_3rd_45 = 62.12;
+
     public $storage_3rd_20_dg = 110.4;
     public $storage_3rd_40_dg = 220.8;
+    public $storage_3rd_45_dg = 248.48;
+
 
     public $storage_1st_lcl_lock = 0.681;
     public $storage_1st_lcl_ware = 0.619;
+
     public $storage_1st_lcl_lock_dg;
     public $storage_1st_lcl_ware_dg;
 

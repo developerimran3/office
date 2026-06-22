@@ -102,9 +102,7 @@ class PortBillGenarate extends Component
     // Form submit
     public function createEnty()
     {
-
         $this->calculate();
-
 
         BillGenerate::create([
             'port_rate_id' => $this->portRates->id,
@@ -153,22 +151,37 @@ class PortBillGenarate extends Component
             return;
         }
 
-
         $usd_rate = (float) ($this->portRates->usd_rate ?? 1);
 
-
+        $is20 = $this->cont_select == '20fcl';
         $is40 = $this->cont_select == '40fcl';
+        $is45 = $this->cont_select == '45fcl';
         $isDg = $this->dg_status == 1;
 
         // Container Rate
-        $rate = $is40
-            ? $this->portRates->river_duse_40
-            : $this->portRates->river_duse_20;
+        if ($is40) {
+            $rate = $this->portRates->river_duse_40;
+        } elseif ($is45) {
+            $rate = $this->portRates->river_duse_45;
+        } elseif ($is20) {
+            $rate = $this->portRates->river_duse_20;
+        } else {
+            $rate = $this->portRates->river_duse_lcl;
+        }
 
 
-        $lift = $is40
-            ? $this->portRates->lift_on_40
-            : $this->portRates->lift_on_20;
+
+
+        if ($is40) {
+            $lift = $this->portRates->lift_on_40;
+        } elseif ($is45) {
+            $lift = $this->portRates->lift_on_45_HQ;
+        } else {
+            $lift = $this->portRates->lift_on_20;
+        }
+
+
+
 
         $extra_mov = $is40
             ? $this->portRates->extra_movement_40

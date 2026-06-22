@@ -30,6 +30,7 @@
                                     <option value="">--select--</option>
                                     <option value="20fcl">20' FCL</option>
                                     <option value="40fcl">40' FCL</option>
+                                    <option value="45fcl">45' FCL</option>
                                     <option value="lockfast">LOCKFAST</option>
                                     <option value="warehouse">WAREHOUSE</option>
                                 </select>
