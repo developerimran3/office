@@ -80,10 +80,11 @@
 -------------------------------------------------------------------*/
 .label-cell {
     background: #cfe6b8;
-    font-weight: 600;
-    padding: 5px;
-    border-radius: 3px;
+    font-weight: 400;
+    padding: 2px;
+    border-radius: 2px;
 }
+
 .highlight {
     background: #fff3cd;
     font-weight: 600;

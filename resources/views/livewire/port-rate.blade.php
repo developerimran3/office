@@ -22,6 +22,7 @@
                             <th>Type</th>
                             <th>20 ft</th>
                             <th>40 ft</th>
+                            <th>45 ft</th>
                             <th>LCL</th>
                         </tr>
                     </thead>
@@ -32,6 +33,8 @@
                                     class="form-control form-control-sm"></td>
                             <td><input type="number" step="0.01" wire:model="river_duse_40"
                                     class="form-control form-control-sm"></td>
+                            <td><input type="number" step="0.01" wire:model="river_duse_45"
+                                    class="form-control form-control-sm"></td>
                             <td><input type="number" step="0.001" wire:model="river_duse_lcl"
                                     class="form-control form-control-sm"></td>
                         </tr>
@@ -41,15 +44,41 @@
                 {{-- Lift On --}}
                 <h5 class="mt-3">Lift On</h5>
                 <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Type</th>
+                            <th>20x8.5 ft</th>
+                            <th>40x8.5 ft</th>
+                            <th>45x8.5 ft</th>
+                            <th>20x9.5 ft</th>
+                            <th>40x9.5 ft</th>
+                            <th>45x9.5 ft</th>
+
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
-                            <td class="text-danger font-weight-bold">Lift 20 ft</td>
-                            <td><input type="number" wire:model="lift_on_20" class="form-control form-control-sm"></td>
-                            <td class="text-danger font-weight-bold">Lift 40 ft</td>
-                            <td><input type="number" wire:model="lift_on_40" class="form-control form-control-sm"></td>
+                            <td class="text-danger font-weight-bold">Lift On</td>
+                            <td><input type="number" step="0.01" wire:model="lift_on_20"
+                                    class="form-control form-control-sm"></td>
+                            <td><input type="number" step="0.01" wire:model="lift_on_40"
+                                    class="form-control form-control-sm"></td>
+                            <td><input type="number" step="0.01" wire:model="lift_on_45"
+                                    class="form-control form-control-sm"></td>
+
+                            <td><input type="number" step="0.01" wire:model="lift_on_20_HQ"
+                                    class="form-control form-control-sm"></td>
+                            <td><input type="number" step="0.01" wire:model="lift_on_40_HQ"
+                                    class="form-control form-control-sm"></td>
+                            <td><input type="number" step="0.01" wire:model="lift_on_45_HQ"
+                                    class="form-control form-control-sm"></td>
+
                         </tr>
                     </tbody>
                 </table>
+
+
+
 
                 {{-- Extra Movement --}}
                 <h5 class="mt-3">Extra Movement</h5>
@@ -61,6 +90,9 @@
                                     class="form-control form-control-sm"></td>
                             <td class="text-danger font-weight-bold">Extra Movement 40 ft</td>
                             <td><input type="number" step="0.01" wire:model="extra_movement_40"
+                                    class="form-control form-control-sm"></td>
+                            <td class="text-danger font-weight-bold">Extra Movement 45 ft</td>
+                            <td><input type="number" step="0.01" wire:model="extra_movement_45"
                                     class="form-control form-control-sm"></td>
                         </tr>
                     </tbody>
@@ -74,8 +106,10 @@
                             <th>Type</th>
                             <th>20</th>
                             <th>40</th>
+                            <th>45</th>
                             <th>20 DG</th>
                             <th>40 DG</th>
+                            <th>45 DG</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,9 +120,13 @@
                                         class="form-control form-control-sm"></td>
                                 <td><input type="number" step="0.01" wire:model="storage_{{ $label }}_40"
                                         class="form-control form-control-sm"></td>
+                                <td><input type="number" step="0.01" wire:model="storage_{{ $label }}_45"
+                                        class="form-control form-control-sm"></td>
                                 <td><input type="number" step="0.01" wire:model="storage_{{ $label }}_20_dg"
                                         class="form-control form-control-sm"></td>
                                 <td><input type="number" step="0.01" wire:model="storage_{{ $label }}_40_dg"
+                                        class="form-control form-control-sm"></td>
+                                <td><input type="number" step="0.01" wire:model="storage_{{ $label }}_45_dg"
                                         class="form-control form-control-sm"></td>
                             </tr>
                         @endforeach
@@ -146,11 +184,20 @@
                     </tbody>
                 </table>
 
-                <div class="text-right mt-4">
-                    <button type="submit" class="btn btn-success">
-                        Save Port Bill Rate
-                    </button>
+                <div class="d-flex justify-content-between mt-4">
+                    <div>
+                        <a href="{{ url('/port-bill') }}" wire:navigate class="btn btn-success">
+                            Back
+                        </a>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="btn btn-success">
+                            Save Port Bill Rate
+                        </button>
+                    </div>
                 </div>
+
             </form>
         </div>
     </div>

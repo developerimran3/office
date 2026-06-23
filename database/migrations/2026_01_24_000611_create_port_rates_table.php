@@ -17,15 +17,15 @@ return new class extends Migration
             $table->decimal('river_duse_20')->default(5.41);
             $table->decimal('river_duse_40')->default(10.82);
             $table->decimal('river_duse_45')->default(12.18);
-            $table->decimal('river_duse_lcl')->default(0.443);
 
 
             $table->decimal('lift_on_20')->default(10);
-            $table->decimal('lift_on_40')->default(15);
-            $table->decimal('lift_on_45')->default(23.23);
-
             $table->decimal('lift_on_20_HQ')->default(20);
+
+            $table->decimal('lift_on_40')->default(15);
             $table->decimal('lift_on_40_HQ')->default(30);
+
+            $table->decimal('lift_on_45')->default(23.23);
             $table->decimal('lift_on_45_HQ')->default(46.46);
 
 
@@ -60,26 +60,26 @@ return new class extends Migration
             $table->decimal('storage_3rd_40_dg')->default(220.8);
             $table->decimal('storage_3rd_45_dg')->default(248.48);
 
+            // LCL 
+            $table->decimal('river_duse_lcl')->default(0.443);
 
             $table->decimal('storage_1st_lcl_lock')->default(.681);
+            $table->decimal('storage_1st_lcl_lock_dg')->default(2.724);
+
             $table->decimal('storage_1st_lcl_ware')->default(.619);
-
-            $table->decimal('storage_1st_lcl_lock_dg')->nullable(73.6);
-            $table->decimal('storage_1st_lcl_ware_dg')->nullable(66.88);
-
+            $table->decimal('storage_1st_lcl_ware_dg')->default(2.476);
 
             $table->decimal('storage_2nd_lcl_lock')->default(2.043);
+            $table->decimal('storage_2nd_lcl_lock_dg')->default(8.172);
+
             $table->decimal('storage_2nd_lcl_ware')->default(1.857);
-
-            $table->decimal('storage_2nd_lcl_lock_dg')->nullable(183.92);
-            $table->decimal('storage_2nd_lcl_ware_dg')->nullable(167.2);
-
+            $table->decimal('storage_2nd_lcl_ware_dg')->default(7.428);
 
             $table->decimal('storage_3rd_lcl_lock')->default(2.724);
-            $table->decimal('storage_3rd_lcl_ware')->default(2.476);
+            $table->decimal('storage_3rd_lcl_lock_dg')->default(10.896);
 
-            $table->decimal('storage_3rd_lcl_lock_dg')->nullable(294.28);
-            $table->decimal('storage_3rd_lcl_ware_dg')->nullable(267.52);
+            $table->decimal('storage_3rd_lcl_ware')->default(2.476);
+            $table->decimal('storage_3rd_lcl_ware_dg')->default(9.904);
 
 
             $table->decimal('rpc')->default(7.5);

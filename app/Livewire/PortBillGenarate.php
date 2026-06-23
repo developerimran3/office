@@ -12,10 +12,7 @@ use App\Models\BillGenerate;
 
 
 class PortBillGenarate extends Component
-
 {
-
-
     public $cl_date;
     public $unstf_date;
     public $wr_date;
@@ -59,7 +56,7 @@ class PortBillGenarate extends Component
     {
         if ($value) {
             $this->wr_date = Carbon::parse($value)
-                ->addDays(3)
+                ->addDays(4)
                 ->format('Y-m-d');
 
             $this->ado_dt = $this->wr_date;
@@ -158,6 +155,7 @@ class PortBillGenarate extends Component
         $is45 = $this->cont_select == '45fcl';
         $isDg = $this->dg_status == 1;
 
+
         // Container Rate
         if ($is40) {
             $rate = $this->portRates->river_duse_40;
@@ -173,25 +171,53 @@ class PortBillGenarate extends Component
 
 
         if ($is40) {
-            $lift = $this->portRates->lift_on_40;
+            $lift = $this->portRates->lift_on_40_HQ;
         } elseif ($is45) {
             $lift = $this->portRates->lift_on_45_HQ;
         } else {
-            $lift = $this->portRates->lift_on_20;
+            $lift = $this->portRates->lift_on_20_HQ;
+        }
+
+
+
+        if ($is40) {
+            $extra_mov = $this->portRates->extra_movement_40;
+        } elseif ($is45) {
+            $extra_mov = $this->portRates->extra_movement_45;
+        } else {
+            $extra_mov = $this->portRates->extra_movement_20;
         }
 
 
 
 
-        $extra_mov = $is40
-            ? $this->portRates->extra_movement_40
-            : $this->portRates->extra_movement_20;
 
 
         // Storage Rate
-        $storage_1 = $is40
-            ? ($isDg ? $this->portRates->storage_1st_40_dg : $this->portRates->storage_1st_40)
-            : ($isDg ? $this->portRates->storage_1st_20_dg : $this->portRates->storage_1st_20);
+        if ($is40) {
+
+            if ($isDg) {
+                $storage_1 = $this->portRates->storage_1st_40_dg;
+            } else {
+                $storage_1 = $this->portRates->storage_1st_40;
+            }
+        } elseif ($is45) {
+
+            if ($isDg) {
+                $storage_1 = $this->portRates->storage_1st_45_dg;
+            } else {
+                $storage_1 = $this->portRates->storage_1st_45;
+            }
+        } else {
+
+            if ($isDg) {
+                $storage_1 = $this->portRates->storage_1st_20_dg;
+            } else {
+                $storage_1 = $this->portRates->storage_1st_20;
+            }
+        }
+
+
 
 
         $storage_2 = $is40

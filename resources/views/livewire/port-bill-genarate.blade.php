@@ -12,21 +12,54 @@
 
         <div class="row column1">
             <div class="col-md-5">
-                <div class="full margin_bottom_30 bg-white p-4">
-
+                <div class="full margin_bottom_30 bg-white p-3">
                     <form wire:submit.prevent="createEnty">
+
+                        <div class="form-row align-items-center mb-2">
+
+                            <div class="col-2 label-cell">Bill For</div>
+                            <div class="col-3">
+                                <select class="form-control form-control-sm" wire:model="">
+                                    <option value="FCL">FCL CONTAINER </option>
+                                    <option value="LCL">LCL CONTAINER</option>
+                                </select>
+                            </div>
+
+                            <div class="col-3">
+                                <table class="table table-bordered table-sm">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th></th>
+                                            <th>8.5</th>
+                                            <th>9.5</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach (['20', '40', '45'] as $i => $label)
+                                        <tr>
+                                            <td class="text-danger font-weight-bold">{{ $label }}</td>
+                                            <td><input type="text" wire:model="storage_{{ $label }}_20"
+                                                    class="form-control form-control-sm"></td>
+                                            <td><input type="text" wire:model="storage_{{ $label }}_40"
+                                                    class="form-control form-control-sm"></td>
+
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </div>
+                        </div>
                         <!-- C/L DT + CONTAINER -->
+
                         <div class="form-row align-items-center mb-2">
                             <div class="col-2 label-cell">C/L DT</div>
                             <div class="col-3">
-                                <input type="date" class="form-control" wire:model.lazy="cl_date">
+                                <input type="date" class="form-control form-control-sm" wire:model.lazy="cl_date">
                             </div>
 
                             <div class="col-2"></div>
 
                             <div class="col-2 label-cell">CONT(s)</div>
                             <div class="col-3">
-                                <select class="form-control" wire:model="cont_select">
+                                <select class="form-control form-control-sm" wire:model="cont_select">
                                     <option value="">--select--</option>
                                     <option value="20fcl">20' FCL</option>
                                     <option value="40fcl">40' FCL</option>
@@ -41,15 +74,15 @@
                         <div class="form-row align-items-center mb-2">
                             <div class="col-2 label-cell">UNSTF DT</div>
                             <div class="col-3">
-                                <input type="date" class="form-control" wire:model.lazy="unstf_date">
+                                <input type="date" class="form-control form-control-sm" wire:model.lazy="unstf_date">
                             </div>
 
                             <div class="col-2"></div>
 
                             <div class="col-2 label-cell">QNTY</div>
                             <div class="col-3">
-                                <input type="number" value="1" class="form-control" wire:model="qty"
-                                    placeholder="1">
+                                <input type="number" value="1" class="form-control form-control-sm"
+                                    wire:model="qty" placeholder="1">
                             </div>
                         </div>
 
@@ -57,15 +90,16 @@
                         <div class="form-row align-items-center mb-2">
                             <div class="col-2 label-cell">W/R DT</div>
                             <div class="col-3">
-                                <input type="date" class="form-control" wire:model="wr_date" readonly>
+                                <input type="date" class="form-control form-control-sm" wire:model="wr_date"
+                                    readonly>
                             </div>
 
                             <div class="col-2"></div>
 
                             <div class="col-2 label-cell">EXCH RATE</div>
                             <div class="col-3">
-                                <input type="text" class="form-control" value="122.7" wire:model="usd_rate"
-                                    placeholder="122.7">
+                                <input type="text" class="form-control form-control-sm" value="122.7"
+                                    wire:model="usd_rate" placeholder="122.7">
                             </div>
                         </div>
 
@@ -73,14 +107,14 @@
                         <div class="form-row align-items-center mb-2">
                             <div class="col-2 label-cell">UP TO DT</div>
                             <div class="col-3">
-                                <input type="date" class="form-control" wire:model.lazy="upto_date">
+                                <input type="date" class="form-control form-control-sm" wire:model.lazy="upto_date">
                             </div>
 
                             <div class="col-2"></div>
 
                             <div class="col-2 label-cell">DAY(s)</div>
                             <div class="col-3">
-                                <input type="text" class="form-control" wire:model="days" readonly>
+                                <input type="text" class="form-control form-control-sm" wire:model="days" readonly>
                             </div>
                         </div>
 
@@ -88,14 +122,14 @@
                         <div class="form-row align-items-center mb-3">
                             <div class="col-2 label-cell">ADO DT</div>
                             <div class="col-3">
-                                <input type="date" class="form-control" wire:model="ado_dt" readonly>
+                                <input type="date" class="form-control form-control-sm" wire:model="ado_dt" readonly>
                             </div>
 
                             <div class="col-2"></div>
 
                             <div class="col-2 text-warning font-weight-bold">DG</div>
                             <div class="col-3">
-                                <select class="form-control" wire:model="dg_status">
+                                <select class="form-control form-control-sm" wire:model="dg_status">
                                     <option value="0">NO</option>
                                     <option value="1">YES</option>
                                 </select>
@@ -108,17 +142,20 @@
                         <div class="form-row align-items-center mb-3">
                             <div class="col-2 label-cell">EXT. MOV</div>
                             <div class="col-2">
-                                <input type="number" class="form-control" wire:model="extra_mov" placeholder="0">
+                                <input type="number" class="form-control form-control-sm" wire:model="extra_mov"
+                                    placeholder="0">
                             </div>
 
                             <div class="col-2 label-cell">RPC</div>
                             <div class="col-2">
-                                <input type="number" wire:model="rpc" min="{{ $qty }}" class="form-control">
+                                <input type="number" wire:model="rpc" min="{{ $qty }}"
+                                    class="form-control form-control-sm">
                             </div>
 
                             <div class="col-2 label-cell">HC</div>
                             <div class="col-2">
-                                <input type="number" class="form-control" wire:model="hc" placeholder="0">
+                                <input type="number" class="form-control form-control-sm" wire:model="hc"
+                                    placeholder="0">
                             </div>
                         </div>
 
