@@ -16,36 +16,15 @@
                     <form wire:submit.prevent="createEnty">
 
                         <div class="form-row align-items-center mb-2">
-
                             <div class="col-2 label-cell">Bill For</div>
-                            <div class="col-3">
+                            <div class="col-4">
                                 <select class="form-control form-control-sm" wire:model="">
                                     <option value="FCL">FCL CONTAINER </option>
                                     <option value="LCL">LCL CONTAINER</option>
                                 </select>
                             </div>
 
-                            <div class="col-3">
-                                <table class="table table-bordered table-sm">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th></th>
-                                            <th>8.5</th>
-                                            <th>9.5</th>
-                                        </tr>
-                                    </thead>
-                                    @foreach (['20', '40', '45'] as $i => $label)
-                                        <tr>
-                                            <td class="text-danger font-weight-bold">{{ $label }}</td>
-                                            <td><input type="text" wire:model="storage_{{ $label }}_20"
-                                                    class="form-control form-control-sm"></td>
-                                            <td><input type="text" wire:model="storage_{{ $label }}_40"
-                                                    class="form-control form-control-sm"></td>
 
-                                        </tr>
-                                    @endforeach
-                                </table>
-                            </div>
                         </div>
                         <!-- C/L DT + CONTAINER -->
 

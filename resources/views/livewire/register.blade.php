@@ -145,7 +145,7 @@
                      <div class="row column1">
                          <div class="col-md-12">
                              <div class=" full">
-                                 <div class="heading1 margin_0 responsive_table">
+                                 <div class="heading1 margin_0 table-responsive">
                                      <table class="table table-bordered mb-none dataTable no-footer " id="dataTable">
                                          <thead>
                                              <tr class="register_enty">
