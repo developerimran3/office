@@ -32,11 +32,13 @@ class PortBillGenarate extends Component
 
     public $dg_status;
     public $cont_select;
+    public $lift_type;
     public $days;
     public $usd_rate;
 
     public $cont; // 20fcl, 40fcl, lockfast, warehouse
     public $portRates;
+
 
     public $calculated = []; // Calculated table values
 
@@ -56,7 +58,7 @@ class PortBillGenarate extends Component
     {
         if ($value) {
             $this->wr_date = Carbon::parse($value)
-                ->addDays(4)
+                ->addDays(3)
                 ->format('Y-m-d');
 
             $this->ado_dt = $this->wr_date;
@@ -99,23 +101,34 @@ class PortBillGenarate extends Component
     // Form submit
     public function createEnty()
     {
+
+        $this->validate([
+            'cl_date'     => 'required|date',
+            'upto_date'   => 'required|date',
+            'qty'         => 'required|numeric|min:1',
+            'cont_select' => 'required|string',
+            'lift_type'   => 'required'
+        ]);
+
         $this->calculate();
 
-        BillGenerate::create([
-            'port_rate_id' => $this->portRates->id,
 
-            'cl_date'       => $this->cl_date,
-            'wr_date'       => $this->wr_date,
-            'upto_date'     => $this->upto_date,
-            'unstf_date'    => $this->unstf_date ?? null,
-            'extra_mov_qty' => $this->extra_mov_qty ?? 0,
-            'hc_qty'        => $this->hc_qty ?? 0,
-            'rpc_qty'       => $this->rpc_qty ?? 0,
-            'qty'           => $this->qty ?? 1,
-            'usd_rate'      => $this->usd_rate ?? 123.50,
-            'cont_select'   => $this->cont_select,
-            'dg_status'     => $this->dg_status ?? 0,
-        ]);
+        // BillGenerate::create([
+        //     'port_rate_id' => $this->portRates->id,
+
+
+        //     'cl_date'       => $this->cl_date,
+        //     'wr_date'       => $this->wr_date,
+        //     'upto_date'     => $this->upto_date,
+        //     'unstf_date'    => $this->unstf_date ?? null,
+        //     'extra_mov_qty' => $this->extra_mov_qty ?? 0,
+        //     'hc_qty'        => $this->hc_qty ?? 0,
+        //     'rpc_qty'       => $this->rpc_qty ?? 0,
+        //     'qty'           => $this->qty ?? 1,
+        //     'usd_rate'      => $this->usd_rate ?? 123.50,
+        //     'cont_select'   => $this->cont_select,
+        //     'dg_status'     => $this->dg_status ?? 0,
+        // ]);
 
         session()->flash('message', 'Port Bill Generated Successfully');
     }
@@ -156,6 +169,9 @@ class PortBillGenarate extends Component
         $isDg = $this->dg_status == 1;
 
 
+
+
+
         // Container Rate
         if ($is40) {
             $rate = $this->portRates->river_duse_40;
@@ -169,14 +185,28 @@ class PortBillGenarate extends Component
 
 
 
+        // Lift on rate select
 
-        if ($is40) {
-            $lift = $this->portRates->lift_on_40_HQ;
-        } elseif ($is45) {
-            $lift = $this->portRates->lift_on_45_HQ;
+        if ($this->lift_type == 8.5) {
+
+            if ($is40) {
+                $lift = $this->portRates->lift_on_40;
+            } elseif ($is45) {
+                $lift = $this->portRates->lift_on_45;
+            } else {
+                $lift = $this->portRates->lift_on_20;
+            }
         } else {
-            $lift = $this->portRates->lift_on_20_HQ;
+
+            if ($is40) {
+                $lift = $this->portRates->lift_on_40_HQ;
+            } elseif ($is45) {
+                $lift = $this->portRates->lift_on_45_HQ;
+            } else {
+                $lift = $this->portRates->lift_on_20_HQ;
+            }
         }
+
 
 
 
@@ -193,7 +223,8 @@ class PortBillGenarate extends Component
 
 
 
-        // Storage Rate
+        // Storage Rate 1
+
         if ($is40) {
 
             if ($isDg) {
@@ -218,16 +249,64 @@ class PortBillGenarate extends Component
         }
 
 
+        // Storage Rate 2
+        if ($is40) {
+
+            if ($isDg) {
+                $storage_2 = $this->portRates->storage_2nd_40_dg;
+            } else {
+                $storage_2 = $this->portRates->storage_2nd_40;
+            }
+        } elseif ($is45) {
+
+            if ($isDg) {
+                $storage_2 = $this->portRates->storage_2nd_45_dg;
+            } else {
+                $storage_2 = $this->portRates->storage_2nd_45;
+            }
+        } else {
+
+            if ($isDg) {
+                $storage_2 = $this->portRates->storage_2nd_20_dg;
+            } else {
+                $storage_2 = $this->portRates->storage_2nd_20;
+            }
+        }
+
+        // Storage Rate 3
+        if ($is40) {
+
+            if ($isDg) {
+                $storage_3 = $this->portRates->storage_3rd_40_dg;
+            } else {
+                $storage_3 = $this->portRates->storage_3rd_40;
+            }
+        } elseif ($is45) {
+
+            if ($isDg) {
+                $storage_3 = $this->portRates->storage_3rd_45_dg;
+            } else {
+                $storage_3 = $this->portRates->storage_3rd_45;
+            }
+        } else {
+
+            if ($isDg) {
+                $storage_3 = $this->portRates->storage_3rd_20_dg;
+            } else {
+                $storage_3 = $this->portRates->storage_3rd_20;
+            }
+        }
 
 
-        $storage_2 = $is40
-            ? ($isDg ? $this->portRates->storage_2nd_40_dg : $this->portRates->storage_2nd_40)
-            : ($isDg ? $this->portRates->storage_2nd_20_dg : $this->portRates->storage_2nd_20);
+
+        // $storage_2 = $is40
+        //     ? ($isDg ? $this->portRates->storage_2nd_40_dg : $this->portRates->storage_2nd_40)
+        //     : ($isDg ? $this->portRates->storage_2nd_20_dg : $this->portRates->storage_2nd_20);
 
 
-        $storage_3 = $is40
-            ? ($isDg ? $this->portRates->storage_3rd_40_dg : $this->portRates->storage_3rd_40)
-            : ($isDg ? $this->portRates->storage_3rd_20_dg : $this->portRates->storage_3rd_20);
+        // $storage_3 = $is40
+        //     ? ($isDg ? $this->portRates->storage_3rd_40_dg : $this->portRates->storage_3rd_40)
+        //     : ($isDg ? $this->portRates->storage_3rd_20_dg : $this->portRates->storage_3rd_20);
 
 
         $qty  = (float) $this->qty;

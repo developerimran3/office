@@ -16,33 +16,49 @@
                     <form wire:submit.prevent="createEnty">
 
                         <div class="form-row align-items-center mb-2">
-                            <div class="col-2 label-cell">Bill For</div>
-                            <div class="col-4">
-                                <select class="form-control form-control-sm" wire:model="">
-                                    <option value="FCL">FCL CONTAINER </option>
-                                    <option value="LCL">LCL CONTAINER</option>
+                            <div class="col-2 label-cell">Bill Type</div>
+                            <div class="col-3">
+                                <select class="form-control form-control-sm" wire:model="ff">
+                                    <option value="FCL">FCL CONT</option>
+                                    <option value="LCL">LCL CONT</option>
                                 </select>
                             </div>
+                            <div class="col-2"></div>
+                            <div class="col-2 label-cell">Cont Size</div>
+                            <div class="col-3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="lift_type" value="8.5"
+                                        wire:model="lift_type" required>
+                                    <label class="form-check-label">8.5</label>
+                                </div>
 
-
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="lift_type" value="9.5"
+                                        wire:model="lift_type" required>
+                                    <label class="form-check-label">9.5</label>
+                                </div>
+                            </div>
                         </div>
                         <!-- C/L DT + CONTAINER -->
 
                         <div class="form-row align-items-center mb-2">
                             <div class="col-2 label-cell">C/L DT</div>
                             <div class="col-3">
-                                <input type="date" class="form-control form-control-sm" wire:model.lazy="cl_date">
+                                <input type="date" class="form-control form-control-sm" wire:model.lazy="cl_date"
+                                    required>
                             </div>
 
                             <div class="col-2"></div>
 
-                            <div class="col-2 label-cell">CONT(s)</div>
+                            <div class="col-2 label-cell">Cont Type</div>
                             <div class="col-3">
-                                <select class="form-control form-control-sm" wire:model="cont_select">
+                                <select class="form-control form-control-sm" wire:model="cont_select" required>
                                     <option value="">--select--</option>
                                     <option value="20fcl">20' FCL</option>
                                     <option value="40fcl">40' FCL</option>
                                     <option value="45fcl">45' FCL</option>
+
+
                                     <option value="lockfast">LOCKFAST</option>
                                     <option value="warehouse">WAREHOUSE</option>
                                 </select>
@@ -61,7 +77,7 @@
                             <div class="col-2 label-cell">QNTY</div>
                             <div class="col-3">
                                 <input type="number" value="1" class="form-control form-control-sm"
-                                    wire:model="qty" placeholder="1">
+                                    wire:model="qty" placeholder="1" required>
                             </div>
                         </div>
 
@@ -78,7 +94,7 @@
                             <div class="col-2 label-cell">EXCH RATE</div>
                             <div class="col-3">
                                 <input type="text" class="form-control form-control-sm" value="122.7"
-                                    wire:model="usd_rate" placeholder="122.7">
+                                    wire:model="usd_rate" required placeholder="122.7">
                             </div>
                         </div>
 
@@ -86,7 +102,8 @@
                         <div class="form-row align-items-center mb-2">
                             <div class="col-2 label-cell">UP TO DT</div>
                             <div class="col-3">
-                                <input type="date" class="form-control form-control-sm" wire:model.lazy="upto_date">
+                                <input type="date" class="form-control form-control-sm" wire:model.lazy="upto_date"
+                                    required>
                             </div>
 
                             <div class="col-2"></div>
@@ -154,19 +171,19 @@
             <div class="col-md-7">
                 <div class="full counter_section margin_bottom_30">
                     <div class="table-responsive">
-                        @if (!empty($calculated))
-                            <table class="table table-bordered table-sm">
-                                <thead class="port_bill">
-                                    <tr>
-                                        <th>DESCRIPTION</th>
-                                        <th>RATE (T/$)</th>
-                                        <th>QNTY</th>
-                                        <th>DAYS</th>
-                                        <th>PORT (TK)</th>
-                                        <th>VAT (TK)</th>
-                                        <th>MLWF (TK)</th>
-                                    </tr>
-                                </thead>
+                        <table class="table table-bordered table-sm">
+                            <thead class="port_bill">
+                                <tr>
+                                    <th>DESCRIPTION</th>
+                                    <th>RATE (T/$)</th>
+                                    <th>QNTY</th>
+                                    <th>DAYS</th>
+                                    <th>PORT (TK)</th>
+                                    <th>VAT (TK)</th>
+                                    <th>MLWF (TK)</th>
+                                </tr>
+                            </thead>
+                            @if (!empty($calculated))
                                 <tbody>
                                     <tr>
                                         <td>RIVER DUES CNT (2N)</td>
@@ -354,8 +371,9 @@
 
                                     </tr>
                                 </tbody>
-                            </table>
-                        @endif
+                            @endif
+                        </table>
+
                     </div>
                 </div>
             </div>
